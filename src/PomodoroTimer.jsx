@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from "react"
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function PomodoroTimer() {
 
+    const completeSound = new Audio("level-win-6416.mp3");
+    let defaultTime = 1 * 60 * 1000;
+
     const [isRunning, setIsRunning] = useState(false);
-    const [remainingTime, setRemainingTime] = useState(25 * 60 * 1000);
+    const [remainingTime, setRemainingTime] = useState(defaultTime);
     const intervalIdRef = useRef(null);
 
 
     useEffect(() => {
         if (isRunning) {
-            setInterval(() => {
+            intervalIdRef.current = setInterval(() => {
                 setRemainingTime(prevTime => {
                     if (prevTime < 1000) {
                         clearInterval(intervalIdRef.current);
@@ -20,7 +25,7 @@ export default function PomodoroTimer() {
                 });
             }, 1000);
         }
-        return clearInterval(intervalIdRef.current);
+        return () => clearInterval(intervalIdRef.current);
     }, [isRunning]);
 
     const startTimer = () => {
@@ -28,34 +33,43 @@ export default function PomodoroTimer() {
     }
 
     const stopTimer = () => {
+        clearInterval(intervalIdRef.current);
         setIsRunning(false);
     }
 
     const resetTimer = () => {
         setIsRunning(false);
-        setRemainingTime(25 * 60 * 1000);
+        setRemainingTime(defaultTime);
     };
 
     const displayFormatedTime = () => {
-        const hrs = Math.floor(remainingTime / (1000 * 60 * 60));
-        const min = Math.floor((remainingTime / (1000 * 60)) % 60);
-        const sec = Math.floor((remainingTime / 1000) % 60);
+        let hrs = Math.floor(remainingTime / (1000 * 60 * 60));
+        let min = Math.floor((remainingTime / (1000 * 60)) % 60);
+        let sec = Math.floor((remainingTime / 1000) % 60);
+
+        hrs = String(hrs).padStart(2, "0");
+        min = String(min).padStart(2, "0");
+        sec = String(sec).padStart(2, "0");
 
         if (hrs > 0) {
             return `${hrs}:${min}:${sec}`;
         } else {
+            if (min==0 && sec==0) {
+                completeSound.play();
+            }
             return `${min}:${sec}`;
+            
         }
     }
+    const totalTime = defaultTime;
+    const percentageTime = ((totalTime - remainingTime) / totalTime) * 100;
 
     return (
         <div className="pomodoro-container">
-            <div className="display">
-                {displayFormatedTime()}
-            </div>
+            <CircularProgressbar value={percentageTime} text={displayFormatedTime()} ></CircularProgressbar>
             <div className="controlers">
                 <button onClick={startTimer} className="start-btn">Start</button>
-                <button onClick={startTimer} className="stop-btn">Stop</button>
+                <button onClick={stopTimer} className="stop-btn">Stop</button>
                 <button onClick={resetTimer} className="reset-btn">Reset</button>
             </div>
         </div>
