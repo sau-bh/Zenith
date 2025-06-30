@@ -1,10 +1,12 @@
 import Timer from "./Timer"
+import PomodoroTimer from "./PomodoroTimer"
 
 function App() {
 
   return (
     <>
-      <Timer></Timer>
+      {/* <Timer></Timer> */}
+      <PomodoroTimer></PomodoroTimer>
     </>
   )
 }

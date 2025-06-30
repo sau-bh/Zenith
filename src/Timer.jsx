@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import './Timer.css'
-import ProgressBar from "@ramonak/react-progress-bar";
 
 export default function Timer() {
 
