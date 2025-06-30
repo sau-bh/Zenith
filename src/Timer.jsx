@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import './Timer.css'
+import ProgressBar from "@ramonak/react-progress-bar";
 
 export default function Timer() {
 
@@ -9,23 +10,43 @@ export default function Timer() {
     const startTimeRef = useRef(0);
 
     useEffect(() => {
+        if (isRunning) {
+            intervalIdRef.current = setInterval(() => {
+                setElapsedTime(Date.now() - startTimeRef.current);
+            }, 1000);
+        }
 
+        return () => {
+            clearInterval(intervalIdRef.current);
+        }
     }, [isRunning]);
 
     const startTimer = () => {
-
+        setIsRunning(true);
+        startTimeRef.current = Date.now() - elapsedTime;
+        console.log(startTimeRef.current);
     }
 
     const stopTimer = () => {
-
+        setIsRunning(false);
     }
 
     const resetTimer = () => {
-
+        setElapsedTime(0);
+        setIsRunning(false);
     }
 
     const formatTime = () => {
-        return `00:00:00`;
+
+        let hrs = Math.floor(elapsedTime / (1000 * 60 * 60));
+        let min = Math.floor(elapsedTime / (1000 * 60) % 60);
+        let sec = Math.floor((elapsedTime / 1000) % 60);
+        let ms = Math.floor((elapsedTime/100));
+
+        hrs = String(hrs).padStart(2,"0");
+        min = String(min).padStart(2,"0");
+        sec = String(sec).padStart(2,"0");
+        return `${hrs} : ${min} : ${sec}`;
     }
 
 
