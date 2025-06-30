@@ -1,0 +1,50 @@
+.stopWatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.display {
+    font-size: 45px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.controls button {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin: 5px;
+    min-width: 125px;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    transition: background-color 0.5s ease-in;
+}
+
+.start-btn {
+    background-color: lightgreen;
+}
+
+.start-btn:hover {
+    background-color: rgb(42, 220, 42);
+}
+
+.stop-btn {
+    background-color: lightcoral;
+}
+
+.stop-btn:hover {
+    background-color: rgb(218, 43, 43);
+}
+
+.reset-btn {
+    background-color: lightblue;
+}
+
+.reset-btn:hover {
+    background-color: rgb(66, 193, 236);
+}
