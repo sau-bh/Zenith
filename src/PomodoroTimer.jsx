@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react"
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import "./PomodoroTimer.css"
 
 export default function PomodoroTimer() {
 
-    const completeSound = new Audio("level-win-6416.mp3");
+    const completeSound = useRef(new Audio("level-win-6416.mp3"));
     let defaultTime = 1 * 60 * 1000;
 
     const [isRunning, setIsRunning] = useState(false);
     const [remainingTime, setRemainingTime] = useState(defaultTime);
     const intervalIdRef = useRef(null);
+    const hasPlayedMusic = useRef(false);
 
 
     useEffect(() => {
@@ -28,8 +30,17 @@ export default function PomodoroTimer() {
         return () => clearInterval(intervalIdRef.current);
     }, [isRunning]);
 
+    // For completion of timer
+    useEffect(() => {
+        if (hasPlayedMusic && remainingTime == 0) {
+            completeSound.current.play();
+            hasPlayedMusic.current = false;
+        }
+    },[remainingTime]);
+
     const startTimer = () => {
         setIsRunning(true);
+        hasPlayedMusic.current = false;
     }
 
     const stopTimer = () => {
@@ -40,6 +51,7 @@ export default function PomodoroTimer() {
     const resetTimer = () => {
         setIsRunning(false);
         setRemainingTime(defaultTime);
+        hasPlayedMusic.current = false;
     };
 
     const displayFormatedTime = () => {
@@ -54,11 +66,11 @@ export default function PomodoroTimer() {
         if (hrs > 0) {
             return `${hrs}:${min}:${sec}`;
         } else {
-            if (min==0 && sec==0) {
+            if (min == 0 && sec == 0) {
                 completeSound.play();
             }
             return `${min}:${sec}`;
-            
+
         }
     }
     const totalTime = defaultTime;
@@ -66,12 +78,18 @@ export default function PomodoroTimer() {
 
     return (
         <div className="pomodoro-container">
-            <CircularProgressbar value={percentageTime} text={displayFormatedTime()} ></CircularProgressbar>
+            <CircularProgressbar
+                value={percentageTime}
+                text={displayFormatedTime()}
+                styles={buildStyles({
+                    pathColor: "rgb(60, 62, 186)",
+                    trailColor: "rgb(180, 181, 215)",
+                })}></CircularProgressbar>
             <div className="controlers">
                 <button onClick={startTimer} className="start-btn">Start</button>
                 <button onClick={stopTimer} className="stop-btn">Stop</button>
                 <button onClick={resetTimer} className="reset-btn">Reset</button>
             </div>
-        </div>
+        </div >
     )
 }
