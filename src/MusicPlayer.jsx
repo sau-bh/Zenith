@@ -1,22 +1,27 @@
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { useState } from 'react';
+const bgm = new Audio("bgm.mp3");
 
 export default function MusicPlayer() {
-    const bgm = new Audio("bgm.mp3");
 
     let [isMusicPlaying, setMusicPlaying] = useState(false);
+    
 
 
-    const handelMusic = () => {
-        setMusicPlaying(!playMusic);
-        if (playMusic) {
+    const handleMusic = () => {
+        if (!isMusicPlaying) {
             bgm.play();
             bgm.loop = true;
+        }else{
+            bgm.pause();
         }
+        setMusicPlaying(!isMusicPlaying);
     }
 
     return (
-        <MusicNoteIcon onClick={handelMusic}></MusicNoteIcon>
+        <button onClick={handleMusic}>
+            <MusicNoteIcon></MusicNoteIcon>
+        </button>
     )
 
 }
