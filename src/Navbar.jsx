@@ -21,43 +21,22 @@ import PersonIcon from '@mui/icons-material/Person';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
-const drawerWidth = 200;
-const navItems = ['Home', 'About', 'Contact'];
+const bgm = new Audio("bgm.mp3");
 
 function DrawerAppBar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
-    const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
-        console.log("icon clicked");
-    };
-
-    const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
-                MUI
-            </Typography>
-            <Divider />
-            <List>
-                <PersonIcon></PersonIcon>
-                {/* {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))} */}
-            </List>
-        </Box>
-    );
+    const [playMusic, setMusic] = React.useState(false);
 
     const handeluser = () => {
         console.log("user clicked");
     }
 
     const handelMusic = () => {
-        console.log("music clicked");
+        setMusic(!playMusic);
+        if(playMusic){
+            bgm.play();
+        }
     }
 
     const handelSetting = () => {
@@ -84,7 +63,7 @@ function DrawerAppBar(props) {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                    
+
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         <button onClick={handelMusic} className='control-btn'>
@@ -99,23 +78,7 @@ function DrawerAppBar(props) {
                     </Box>
                 </Toolbar>
             </AppBar>
-            <nav>
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                    sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
-            </nav>
+           
             <Box component="main" sx={{ p: 3 }}>
                 <Toolbar />
             </Box>
@@ -124,11 +87,48 @@ function DrawerAppBar(props) {
 }
 
 DrawerAppBar.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     window: PropTypes.func,
 };
 
 export default DrawerAppBar;
+
+
+// For mobile
+    //  For mobile icon 
+    // const handleDrawerToggle = () => {
+    //     setMobileOpen((prevState) => !prevState);
+    //     console.log("icon clicked");
+    // };
+
+    // For mobile drwer
+    // const drawerWidth = 200;
+    // const drawer = (
+    //     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    //         <Typography variant="h6" sx={{ my: 2 }}>
+    //             MUI
+    //         </Typography>
+    //         <Divider />
+    //         <List>
+    //             <PersonIcon></PersonIcon>
+    //         </List>
+    //     </Box>
+    // );
+
+    // --------------------------
+    //  <nav>
+    //             <Drawer
+    //                 container={container}
+    //                 variant="temporary"
+    //                 open={mobileOpen}
+    //                 onClose={handleDrawerToggle}
+    //                 ModalProps={{
+    //                     keepMounted: true, // Better open performance on mobile.
+    //                 }}
+    //                 sx={{
+    //                     display: { xs: 'block', sm: 'none' },
+    //                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+    //                 }}
+    //             >
+    //                 {drawer}
+    //             </Drawer>
+    //         </nav>
