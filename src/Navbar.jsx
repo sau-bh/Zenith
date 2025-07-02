@@ -51,9 +51,7 @@ function DrawerAppBar(props) {
                         <button onClick={handelMusic} className='control-btn'>
                             <MusicNoteIcon></MusicNoteIcon>
                         </button>
-                        <button onClick={handeluser} className='control-btn'>
-                            <PersonIcon></PersonIcon>
-                        </button>
+                        <UserMenu></UserMenu>
                         <button onClick={handelSetting} className='control-btn'>
                             <SettingsOutlinedIcon></SettingsOutlinedIcon>
                         </button>
