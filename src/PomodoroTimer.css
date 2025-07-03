@@ -1,5 +1,39 @@
-.controlers{
+.pomodoro-container {
+    margin: auto;
+    margin-top: 10px;
+    height: 600px;
+    width: 500px;
+}
+
+.controlers {
     display: flex;
     justify-content: space-around;
     margin: 20px;
+}
+
+@media only screen and (max-width:430px) {
+    .pomodoro-container {
+        /* margin: auto; */
+        margin-top: 10px;
+        height: 400px;
+        width: 300px;
+    }
+}
+
+.start-btn{
+    background-color: rgb(41, 150, 41);
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.stop-btn{
+    background-color: rgb(222, 57, 57);
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.reset-btn{
+    background-color: rgb(66, 66, 211);
+    padding: 6px;
+    border-radius: 5px;
 }

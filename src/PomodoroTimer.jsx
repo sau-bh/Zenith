@@ -77,6 +77,7 @@ export default function PomodoroTimer() {
     const percentageTime = ((totalTime - remainingTime) / totalTime) * 100;
 
     return (
+        
         <div className="pomodoro-container">
             <CircularProgressbar
                 value={percentageTime}

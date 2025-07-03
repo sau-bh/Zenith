@@ -1,7 +1,8 @@
 *{
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 #root{
     width: 100%;

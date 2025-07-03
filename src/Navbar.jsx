@@ -7,9 +7,7 @@ function Navbar() {
         <>
             <div className="Nav-container">
                 <Logo></Logo>
-                
-                    <NavControllers></NavControllers>
-                
+                <NavControllers></NavControllers>
             </div>
         </>
     );
