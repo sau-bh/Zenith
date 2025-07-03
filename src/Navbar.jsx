@@ -5,8 +5,12 @@ import NavControllers from './NavControllers';
 function Navbar() {
     return (
         <>
-            <Logo></Logo>
-            <NavControllers></NavControllers> 
+            <div className="Nav-container">
+                <Logo></Logo>
+                
+                    <NavControllers></NavControllers>
+                
+            </div>
         </>
     );
 }

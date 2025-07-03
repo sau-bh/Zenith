@@ -1,14 +1,9 @@
-import Timer from "./Timer"
-import PomodoroTimer from "./PomodoroTimer"
-import Navbar from "./Navbar"
-
+import HomePage from "./HomePage"
 function App() {
 
   return (
     <>
-      <Navbar></Navbar>
-      {/* <Timer></Timer> */}
-      <PomodoroTimer></PomodoroTimer>
+      <HomePage></HomePage>
     </>
   )
 }

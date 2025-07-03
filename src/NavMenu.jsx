@@ -1,7 +1,9 @@
+import MenuIcon from '@mui/icons-material/Menu';
+
 export default function NavMenu(){
     return(
         <>
-            <p>NavMenu</p>
+            <MenuIcon fontSize='large' sx={{color:'white'}}></MenuIcon>
         </>
     )
 }

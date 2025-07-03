@@ -1,5 +1,11 @@
-.control-btn{
-    background-color: transparent;
-    border: none;
-    margin-right: 10px;
+.Nav-container{
+    display: flex;
+    align-items: center;         /* THIS is the key */
+    justify-content: space-between;
+    background-color: #3d54e8;
+    height: 60px;                /* Give it height! */
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }

@@ -1,6 +1,7 @@
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { useState } from 'react';
 const bgm = new Audio("bgm.mp3");
+import "./MusicPlayer.css"
 
 export default function MusicPlayer() {
 
@@ -19,7 +20,7 @@ export default function MusicPlayer() {
     }
 
     return (
-        <button onClick={handleMusic}>
+        <button onClick={handleMusic} className='btn'>
             <MusicNoteIcon></MusicNoteIcon>
         </button>
     )
