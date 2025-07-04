@@ -21,6 +21,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime })
     const handelSubmit = (event) => {
         event.preventDefault();
         setCustomTime({ hrs, min, sec })
+        toggleDrawer(false);
     }
 
     const DrawerList = (
@@ -55,7 +56,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime })
         <div>
             <Drawer
                 open={isOpen}
-                onClose={()=>toggleDrawer(false)}>
+                onClose={toggleDrawer(false)}>
                 {DrawerList}
             </Drawer>
         </div>

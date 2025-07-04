@@ -9,7 +9,7 @@ export default function HomePage(){
     return(
         <>
             <Navbar setCustomTime={setCustomTime}></Navbar>
-            <PomodoroTimer></PomodoroTimer>
+            <PomodoroTimer customTime={customTime}></PomodoroTimer>
         </>
     )
 }

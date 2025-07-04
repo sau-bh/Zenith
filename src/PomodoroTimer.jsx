@@ -3,28 +3,43 @@ import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import "./PomodoroTimer.css"
 
-export default function PomodoroTimer() {
+export default function PomodoroTimer({ customTime }) {
+
+    const convertToMilliseconds = (time) => {
+        return ((time.hrs * 60 * 60) + (time.min * 60) + time.sec) * 1000;
+    };
+
 
     const completeSound = useRef(new Audio("level-win-6416.mp3"));
-    let defaultTime = 1 * 60 * 1000;
 
-    const [isRunning, setIsRunning] = useState(false);
+    const [defaultTime, setDefaultTime] = useState(convertToMilliseconds(customTime));
     const [remainingTime, setRemainingTime] = useState(defaultTime);
+    const [isRunning, setIsRunning] = useState(false);
+
     const intervalIdRef = useRef(null);
     const hasPlayedMusic = useRef(false);
 
+    useEffect(() => {
+        const newTime = convertToMilliseconds(customTime);
+        setDefaultTime(newTime);
+        setRemainingTime(newTime);
+        setIsRunning(false); // Optional: stop timer on time change
+        hasPlayedMusic.current = false;
+    }, [customTime]);
+
 
     useEffect(() => {
-        if (isRunning) {
+        if (isRunning && remainingTime > 0) {
             intervalIdRef.current = setInterval(() => {
-                setRemainingTime(prevTime => {
-                    if (prevTime < 1000) {
-                        clearInterval(intervalIdRef.current);
-                        setIsRunning(false);
-                        return 0;
-                    }
-                    return prevTime - 1000;
-                });
+                setRemainingTime(
+                    prevTime => {
+                        if (prevTime < 1000) {
+                            clearInterval(intervalIdRef.current);
+                            setIsRunning(false);
+                            return 0;
+                        }
+                        return prevTime - 1000;
+                    });
             }, 1000);
         }
         return () => clearInterval(intervalIdRef.current);
@@ -32,15 +47,15 @@ export default function PomodoroTimer() {
 
     // For completion of timer
     useEffect(() => {
-        if (hasPlayedMusic && remainingTime == 0) {
+        if (hasPlayedMusic && remainingTime === 0) {
             completeSound.current.play();
             hasPlayedMusic.current = false;
         }
-    },[remainingTime]);
+    }, [remainingTime]);
 
     const startTimer = () => {
         setIsRunning(true);
-        hasPlayedMusic.current = false;
+        hasPlayedMusic.current = true;
     }
 
     const stopTimer = () => {
@@ -66,18 +81,14 @@ export default function PomodoroTimer() {
         if (hrs > 0) {
             return `${hrs}:${min}:${sec}`;
         } else {
-            if (min == 0 && sec == 0) {
-                completeSound.play();
-            }
             return `${min}:${sec}`;
-
         }
     }
     const totalTime = defaultTime;
     const percentageTime = ((totalTime - remainingTime) / totalTime) * 100;
 
     return (
-        
+
         <div className="pomodoro-container">
             <CircularProgressbar
                 value={percentageTime}
@@ -87,8 +98,8 @@ export default function PomodoroTimer() {
                     trailColor: "rgb(180, 181, 215)",
                 })}></CircularProgressbar>
             <div className="controlers">
-                <button onClick={startTimer} className="start-btn">Start</button>
-                <button onClick={stopTimer} className="stop-btn">Stop</button>
+                <button onClick={startTimer} className="start-btn" disabled={isRunning} >Start</button>
+                <button onClick={stopTimer} className="stop-btn" disabled={!isRunning} >Stop</button>
                 <button onClick={resetTimer} className="reset-btn">Reset</button>
             </div>
         </div >
