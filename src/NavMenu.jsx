@@ -3,12 +3,11 @@ import { useState } from 'react';
 import "./NavMenu.css"
 import UserMenu from './UserMenu'
 
-export default function NavMenu() {
+export default function NavMenu({setCustomTime}) {
     const [isDrawer, setIsDrawer] = useState(false);
 
     const toggleDrawer = (open) => () => {
         setIsDrawer(open);
-        console.log(isDrawer);
     }
 
 
@@ -18,7 +17,7 @@ export default function NavMenu() {
                 <MenuIcon fontSize='large' sx={{ color: 'white' }}></MenuIcon>
             </button>
 
-            <UserMenu isOpen={isDrawer} toggleDrawer={toggleDrawer}></UserMenu>
+            <UserMenu isOpen={isDrawer} toggleDrawer={toggleDrawer} setCustomTime={setCustomTime}></UserMenu>
         </>
     )
 }

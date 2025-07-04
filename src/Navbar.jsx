@@ -2,12 +2,12 @@ import "./Navbar.css"
 import Logo from './Logo';
 import NavControllers from './NavControllers';
 
-function Navbar() {
+function Navbar({setCustomTime}) {
     return (
         <>
             <div className="Nav-container">
                 <Logo></Logo>
-                <NavControllers></NavControllers>
+                <NavControllers setCustomTime={setCustomTime}></NavControllers>
             </div>
         </>
     );
