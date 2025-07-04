@@ -1,0 +1,24 @@
+#setCustomTimeBtn{
+    background-color: rgb(41, 150, 41);
+    border-radius:15PX;
+    width: 7rem;
+}
+.input{
+    display: flex;
+    gap: 5px;
+    text-align: center;
+}
+.setCustomTime input{
+    all: unset;
+    width: 3rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background: lightgray;
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
