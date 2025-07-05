@@ -3,17 +3,23 @@ import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import "./PomodoroTimer.css"
 
-export default function PomodoroTimer({ customTime }) {
+export default function PomodoroTimer({ customTime, customBreakTime }) {
 
     const convertToMilliseconds = (time) => {
         return ((time.hrs * 60 * 60) + (time.min * 60) + time.sec) * 1000;
     };
 
+    // Break pomodoro toggle
+    const [isPomodoro, setIsPomodoro] = useState(true);
 
     const completeSound = useRef(new Audio("level-win-6416.mp3"));
 
     const [defaultTime, setDefaultTime] = useState(convertToMilliseconds(customTime));
+    const [defaultBreakTime, setDefaultBreakTime] = useState(convertToMilliseconds(customBreakTime));
+
     const [remainingTime, setRemainingTime] = useState(defaultTime);
+    const [remainingBreakTime, setRemainingBreakTime] = useState(defaultBreakTime);
+
     const [isRunning, setIsRunning] = useState(false);
 
     const intervalIdRef = useRef(null);
@@ -29,30 +35,56 @@ export default function PomodoroTimer({ customTime }) {
 
 
     useEffect(() => {
-        if (isRunning && remainingTime > 0) {
-            intervalIdRef.current = setInterval(() => {
+        if (!isRunning) {
+            return;
+        }
+
+        const interval = setInterval(() => {
+            if (isPomodoro) {
                 setRemainingTime(
                     prevTime => {
                         if (prevTime < 1000) {
                             clearInterval(intervalIdRef.current);
-                            setIsRunning(false);
+                            handleSessionComplete();
                             return 0;
                         }
                         return prevTime - 1000;
-                    });
-            }, 1000);
-        }
-        return () => clearInterval(intervalIdRef.current);
-    }, [isRunning]);
+                    })
+            } else {
+                setRemainingBreakTime(
+                    prevTime => {
+                        if (prevTime < 1000) {
+                            clearInterval(intervalIdRef.current);
+                            handleSessionComplete();
+                            return 0;
+                        }
+                        return prevTime - 1000;
+                    }
+                )
+            }
+        }, 1000);
 
-    // For completion of timer
-    useEffect(() => {
-        if (hasPlayedMusic && remainingTime === 0) {
-            completeSound.current.play();
-            hasPlayedMusic.current = false;
-        }
-    }, [remainingTime]);
+        return () => clearInterval(interval);
 
+    }, [isRunning, isPomodoro]);
+
+    // Handel complete for timer toggle
+    const handleSessionComplete = () => {
+        completeSound.current.play();
+        hasPlayedMusic.current = false;
+
+        setIsPomodoro(prev => !prev);
+        setIsRunning(true);
+
+        if (isPomodoro) {
+            setRemainingBreakTime(defaultBreakTime);
+        } else {
+            setRemainingTime(defaultTime);
+        }
+
+    }
+
+    // Timer controllers
     const startTimer = () => {
         setIsRunning(true);
         hasPlayedMusic.current = true;
@@ -66,13 +98,19 @@ export default function PomodoroTimer({ customTime }) {
     const resetTimer = () => {
         setIsRunning(false);
         setRemainingTime(defaultTime);
+        setRemainingBreakTime(defaultBreakTime);
+        setIsPomodoro(true);
         hasPlayedMusic.current = false;
     };
 
+    // Displaying time on clock
     const displayFormatedTime = () => {
-        let hrs = Math.floor(remainingTime / (1000 * 60 * 60));
-        let min = Math.floor((remainingTime / (1000 * 60)) % 60);
-        let sec = Math.floor((remainingTime / 1000) % 60);
+
+        const time = isPomodoro ? remainingTime : remainingBreakTime;
+
+        let hrs = Math.floor(time / (1000 * 60 * 60));
+        let min = Math.floor((time / (1000 * 60)) % 60);
+        let sec = Math.floor((time / 1000) % 60);
 
         hrs = String(hrs).padStart(2, "0");
         min = String(min).padStart(2, "0");
@@ -84,12 +122,16 @@ export default function PomodoroTimer({ customTime }) {
             return `${min}:${sec}`;
         }
     }
-    const totalTime = defaultTime;
-    const percentageTime = ((totalTime - remainingTime) / totalTime) * 100;
+
+    // For circular progress bar
+    const totalTime = isPomodoro ? defaultTime : defaultBreakTime;
+    const timeLeft = isPomodoro ? remainingTime : remainingBreakTime;
+    const percentageTime = ((totalTime - timeLeft) / totalTime) * 100;
+
 
     return (
-
         <div className="pomodoro-container">
+            <h2>{isPomodoro ? "Focus" : "Break Time"}</h2>
             <CircularProgressbar
                 value={percentageTime}
                 text={displayFormatedTime()}
