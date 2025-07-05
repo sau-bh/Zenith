@@ -3,6 +3,7 @@
     margin-top: 10px;
     height: 600px;
     width: 500px;
+    overflow: hidden;
 }
 
 .controlers {
