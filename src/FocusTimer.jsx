@@ -2,44 +2,53 @@ import { useEffect, useRef, useState } from "react"
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-export default function FocusTimer({ duration, onComplete }) {
+export default function FocusTimer({ duration, onComplete, autoStart }) {
 
     const completeSound = useRef(new Audio("level-win-6416.mp3"));
     const [remainingTime, setRemainingTime] = useState(duration);
     const [isRunning, setIsRunning] = useState(false);
+    const [hasCompleted, setHasCompleted] = useState(false);
 
     const intervalRef = useRef(null);
 
     useEffect(() => {
         setRemainingTime(duration);
-    }, [duration]);
+        setIsRunning(false || autoStart);
+        setHasCompleted(false);
+    }, [duration,autoStart]);
 
 
 
     useEffect(() => {
-        if (!isRunning) {
+        if (!isRunning || hasCompleted) {
             return;
         }
 
-        const interval = setInterval(() => {
+        intervalRef.current = setInterval(() => {
             setRemainingTime(
                 prevTime => {
                     if (prevTime < 1000) {
                         clearInterval(intervalRef.current);
                         completeSound.current.play();
-                        onComplete();
+                        setIsRunning(false);
+                        setHasCompleted(true);
+                        setTimeout(()=>{
+                            onComplete();
+                        },0);
                         return 0;
                     }
                     return prevTime - 1000;
                 });
         }, 1000);
 
-        return () => clearInterval(intervalRef.current);
+        return () => { if (intervalRef.current) clearInterval(intervalRef.current)};
 
-    }, [isRunning, onComplete]);
+    }, [isRunning, onComplete,hasCompleted]);
 
     const startTimer = () => {
-        setIsRunning(true);
+        if(remainingTime>0 && !hasCompleted){
+            setIsRunning(true);
+        }
     }
 
     const stopTimer = () => {
@@ -51,6 +60,7 @@ export default function FocusTimer({ duration, onComplete }) {
         clearInterval(intervalRef.current);
         setIsRunning(false);
         setRemainingTime(duration);
+        setHasCompleted(false);
     };
 
     // Displaying time on clock
