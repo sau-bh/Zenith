@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-export default function FocusTimer({ customTime }) {
+export default function FocusTimer({ customTime, isPomodoro, setIsPomodoro }) {
 
     const convertToMilliseconds = (time) => {
         return ((time.hrs * 60 * 60) + (time.min * 60) + time.sec) * 1000;
@@ -42,17 +42,6 @@ export default function FocusTimer({ customTime }) {
                         }
                         return prevTime - 1000;
                     })
-            } else {
-                setRemainingBreakTime(
-                    prevTime => {
-                        if (prevTime < 1000) {
-                            clearInterval(interval);
-                            handleSessionComplete();
-                            return 0;
-                        }
-                        return prevTime - 1000;
-                    }
-                )
             }
         }, 1000);
 
