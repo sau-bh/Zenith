@@ -10,12 +10,16 @@ export default function PomodoroTimer({ customTime, customBreakTime }) {
         return ((time.hrs * 60 * 60) + (time.min * 60) + time.sec) * 1000;
     };
 
+    const convertToMilliseconds2 = (time) => {
+        return ((time.breakHrs * 60 * 60) + (time.breakMin * 60) + time.breakSec) * 1000;
+    };
+
     //pomodoro toggle
     const [isPomodoro, setIsPomodoro] = useState(true);
 
     const defaultFocusTime = convertToMilliseconds(customTime);
-    const defaultBreakTime = convertToMilliseconds(customBreakTime);
-
+    const defaultBreakTime = convertToMilliseconds2(customBreakTime);
+    console.log(" In pomodoro >>> ",defaultBreakTime );
     const handleSessionComplete = () => {
         setIsPomodoro((prev) => !prev);
     }
@@ -26,13 +30,12 @@ export default function PomodoroTimer({ customTime, customBreakTime }) {
                 <FocusTimer
                     duration={defaultFocusTime}
                     onComplete={handleSessionComplete}
-                    autoStart={true}
                 ></FocusTimer>
             ) : (
                 <BreakTimer
                     duration={defaultBreakTime}
                     onComplete={handleSessionComplete}
-                    autoStart={true}
+                    // autoStart={true}
                 ></BreakTimer>
             )}
 
