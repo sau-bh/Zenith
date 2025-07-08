@@ -19,7 +19,6 @@ export default function PomodoroTimer({ customTime, customBreakTime }) {
 
     const defaultFocusTime = convertToMilliseconds(customTime);
     const defaultBreakTime = convertToMilliseconds2(customBreakTime);
-    console.log(" In pomodoro >>> ",defaultBreakTime );
     const handleSessionComplete = () => {
         setIsPomodoro((prev) => !prev);
     }

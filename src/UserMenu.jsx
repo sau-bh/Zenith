@@ -4,8 +4,9 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { useState } from 'react';
+import Settings from './Settings';
+import UserProfile from './UserProfile'
 import "./UserMenu.css"
 
 export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime, setCustomBreakTime }) {
@@ -18,6 +19,18 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime, s
     const [breakMin, setBreakMinutes] = useState(5);
     const [breakSec, setBreakSeconds] = useState(0);
 
+    let [isSetting, setIsSettings] = useState(false);
+
+    const handleSettings = () => {
+        setIsSettings(!isSetting);
+    }
+
+    let [isUserSetting, setIsUserSettings] = useState(false);
+
+    const handleUserSettings = () => {
+        setIsUserSettings(!isUserSetting);
+    }
+
     const handelSubmit = (event) => {
         event.preventDefault();
         setCustomTime({ hrs, min, sec })
@@ -26,7 +39,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime, s
 
     const handelBreakSubmit = (event) => {
         event.preventDefault();
-        setCustomBreakTime({ breakHrs,breakMin,breakSec})
+        setCustomBreakTime({ breakHrs, breakMin, breakSec })
         toggleDrawer(false);
     }
 
@@ -61,10 +74,10 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime, s
                 </ListItem>
                 <Divider variant='middle' style={{ color: "black" }}></Divider>
                 <ListItem>
-                    <PersonIcon></PersonIcon>User Profile
+                    <UserProfile isUserSetting={isUserSetting} handleUserSettings={handleUserSettings} ></UserProfile>
                 </ListItem>
                 <ListItem>
-                    <SettingsIcon></SettingsIcon> Settings
+                    <Settings isSetting={isSetting} handleSettings={handleSettings}></Settings>
                 </ListItem>
             </List>
         </Box>
