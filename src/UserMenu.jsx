@@ -3,7 +3,6 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import PersonIcon from '@mui/icons-material/Person';
 import { useState } from 'react';
 import Settings from './Settings';
 import UserProfile from './UserProfile'
