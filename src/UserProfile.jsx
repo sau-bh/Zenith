@@ -11,8 +11,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import SettingsIcon from '@mui/icons-material/Settings';
 import Slide from '@mui/material/Slide';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -33,10 +33,10 @@ export default function UserProfile() {
         <React.Fragment>
             <ListItem disablePadding>
                 <ListItemButton onClick={handleClickOpen}>
-                    <ListItemIcon>
-                        <SettingsIcon/>
+                    <ListItemIcon id='userIcon'>
+                        <PersonIcon/>
                     </ListItemIcon>
-                    
+                    <ListItemText primary="Profile"/>
                 </ListItemButton>
             </ListItem>
             <Dialog
