@@ -1,9 +1,11 @@
 import HomePage from "./HomePage"
+import { CustomThemeProvider } from "./ThemeContext"
 function App() {
-
   return (
     <>
-      <HomePage></HomePage>
+      <CustomThemeProvider>
+        <HomePage />
+      </CustomThemeProvider>
     </>
   )
 }

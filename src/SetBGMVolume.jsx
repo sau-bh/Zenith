@@ -10,9 +10,9 @@ export default function SetBGMVolume({ setVolume, volume }) {
     }
 
     return (
-        <Box sx={{ width: 300, p: 3 }}>
+        <Box sx={{ width: 300, p: 3, display:"flex", alignItems:"center",justifyContent:"space-evenly" }}>
             <VolumeUpIcon />
-            <Slider value={volume} handleChange={handleChange} />
+            <Slider value={volume} handleChange={handleChange}/>
         </Box>
     );
 }

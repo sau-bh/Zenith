@@ -5,6 +5,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import "./Themes.css"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useContext } from 'react';
+import { ThemeContext } from './ThemeContext.jsx';
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -50,14 +52,22 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function CustomizedMenus() {
+
+    const { themeName, setThemeName, availableThemes } = useContext(ThemeContext);
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+    const handleThemeSelect = (theme) => {
+        setThemeName(theme);
         setAnchorEl(null);
     };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
 
     return (
         <div className='themes'>
@@ -84,19 +94,32 @@ export default function CustomizedMenus() {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} disableRipple>
-                    Edit
+                <MenuItem onClick={() => handleThemeSelect('light')} disableRipple>
+                    Light
                 </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    Duplicate
+                <MenuItem onClick={() => handleThemeSelect('dark')} disableRipple>
+                    Dark
                 </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    Archive
+                <MenuItem onClick={() => handleThemeSelect('blue')} disableRipple>
+                    Blue
                 </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    More
+                <MenuItem onClick={() => handleThemeSelect('highContrast')} disableRipple>
+                    High Contrast
                 </MenuItem>
             </StyledMenu>
         </div>
     );
 }
+
+// return (
+//     <div>
+//         <label>Select Theme: </label>
+//         <select value={themeName} onChange={(e) => }>
+//             {availableThemes.map(theme => (
+//                 <option key={theme} value={theme}>{theme}</option>
+//             ))}
+//         </select>
+//     </div>
+// );
+
+
