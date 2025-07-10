@@ -16,7 +16,7 @@ import { ListItem, ListItemIcon } from '@mui/material';
 import CustomSound from "./CustomSound.jsx"
 import SetBGMVolume from './SetBGMVolume.jsx';
 
-export default function Settings({setvolume,volume}) {
+export default function Settings({setVolume,volume}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -50,7 +50,7 @@ export default function Settings({setvolume,volume}) {
                     <Box >
                         <Themes />
                         <CustomSound />
-                        <SetBGMVolume setvolume={setvolume} volume={volume} />
+                        <SetBGMVolume setVolume={setVolume} volume={volume} />
                     </Box>
                 </DialogContent>
                 <DialogActions>
