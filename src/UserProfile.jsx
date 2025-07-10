@@ -31,14 +31,14 @@ export default function UserProfile() {
 
     return (
         <React.Fragment>
-            <ListItem disablePadding>
+            
                 <ListItemButton onClick={handleClickOpen}>
                     <ListItemIcon id='userIcon'>
                         <PersonIcon/>
                     </ListItemIcon>
                     <ListItemText primary="Profile"/>
                 </ListItemButton>
-            </ListItem>
+           
             <Dialog
                 fullScreen
                 open={open}

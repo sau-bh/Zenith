@@ -30,14 +30,14 @@ export default function MaxWidthDialog() {
     return (
         <React.Fragment>
 
-            <ListItem disablePadding>
-                <ListItemButton onClick={handleClickOpen}>
-                    <ListItemIcon id='userIcon'>
-                        <SettingsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Settings" />
-                </ListItemButton>
-            </ListItem>
+
+            <ListItemButton onClick={handleClickOpen}>
+                <ListItemIcon id='userIcon'>
+                    <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Settings" />
+            </ListItemButton>
+
             <Dialog
                 fullWidth={true}
                 maxWidth={'sm'}
