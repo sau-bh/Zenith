@@ -3,7 +3,7 @@ import { useState } from 'react';
 import "./NavMenu.css"
 import UserMenu from './UserMenu'
 
-export default function NavMenu({setCustomTime,setCustomBreakTime}) {
+export default function NavMenu({ setCustomTime, setCustomBreakTime, setVolume, volume }) {
     const [isDrawer, setIsDrawer] = useState(false);
 
     const toggleDrawer = (open) => () => {
@@ -17,7 +17,14 @@ export default function NavMenu({setCustomTime,setCustomBreakTime}) {
                 <MenuIcon fontSize='large' sx={{ color: 'white' }}></MenuIcon>
             </button>
 
-            <UserMenu isOpen={isDrawer} toggleDrawer={toggleDrawer} setCustomTime={setCustomTime} setCustomBreakTime={setCustomBreakTime}></UserMenu>
+            <UserMenu
+                isOpen={isDrawer}
+                toggleDrawer={toggleDrawer}
+                setCustomTime={setCustomTime}
+                setCustomBreakTime={setCustomBreakTime}
+                setVolume={setVolume}
+                volume={volume}>
+            </UserMenu>
         </>
     )
 }

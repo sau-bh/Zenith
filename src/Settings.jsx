@@ -16,7 +16,7 @@ import { ListItem, ListItemIcon } from '@mui/material';
 import CustomSound from "./CustomSound.jsx"
 import SetBGMVolume from './SetBGMVolume.jsx';
 
-export default function MaxWidthDialog() {
+export default function Settings({setvolume,volume}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -50,7 +50,7 @@ export default function MaxWidthDialog() {
                     <Box >
                         <Themes />
                         <CustomSound />
-                        <SetBGMVolume />
+                        <SetBGMVolume setvolume={setvolume} volume={volume} />
                     </Box>
                 </DialogContent>
                 <DialogActions>

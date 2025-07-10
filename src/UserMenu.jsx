@@ -8,7 +8,7 @@ import Settings from './Settings';
 import UserProfile from './UserProfile'
 import "./UserMenu.css"
 
-export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime, setCustomBreakTime }) {
+export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime, setCustomBreakTime, setVolume,volume }) {
 
     const [hrs, setHours] = useState(0);
     const [min, setMinutes] = useState(25);
@@ -76,7 +76,7 @@ export default function TemporaryDrawer({ isOpen, toggleDrawer, setCustomTime, s
                     <UserProfile isUserSetting={isUserSetting} handleUserSettings={handleUserSettings} ></UserProfile>
                 </ListItem>
                 <ListItem>
-                    <Settings isSetting={isSetting} handleSettings={handleSettings}></Settings>
+                    <Settings isSetting={isSetting} handleSettings={handleSettings} setVolume={setVolume} volume={volume}></Settings>
                 </ListItem>
             </List>
         </Box>

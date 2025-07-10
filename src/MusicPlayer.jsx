@@ -1,28 +1,31 @@
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
-import { useState } from 'react';
-const bgm = new Audio("bgm.mp3");
+import { useState, useEffect } from 'react';
 import "./MusicPlayer.css"
 
-export default function MusicPlayer() {
+const bgm = new Audio("bgm.mp3");
+bgm.loop = true;
+
+export default function MusicPlayer({ volume }) {
 
     let [isMusicPlaying, setMusicPlaying] = useState(false);
-
-
 
     const handleMusic = () => {
         if (!isMusicPlaying) {
             bgm.play();
-            bgm.loop = true;
         } else {
             bgm.pause();
         }
         setMusicPlaying(!isMusicPlaying);
     }
 
+    useEffect(() => {
+        bgm.volume = volume ?? 1;
+    }, [volume]);
+
     return (
         <button onClick={handleMusic} className='btn'>
-            {isMusicPlaying? <MusicOffIcon/>: <MusicNoteIcon/>}
+            {isMusicPlaying ? <MusicOffIcon /> : <MusicNoteIcon />}
         </button>
     )
 
