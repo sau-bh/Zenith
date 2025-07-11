@@ -1,8 +1,13 @@
+.drawer{
+    background-color: var(--bg-color);   
+}
+
 #setCustomTimeBtn{
     background-color: rgb(41, 150, 41);
     border-radius:15PX;
     width: 7rem;
 }
+
 .input{
     display: flex;
     gap: 5px;

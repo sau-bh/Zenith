@@ -14,7 +14,7 @@ export default function NavMenu({ setCustomTime, setCustomBreakTime, setVolume, 
     return (
         <>
             <button onClick={toggleDrawer(true)} className='btn'>
-                <MenuIcon fontSize='large' sx={{ color: 'white' }}></MenuIcon>
+                <MenuIcon fontSize='large' id='menuBtn'></MenuIcon>
             </button>
 
             <UserMenu

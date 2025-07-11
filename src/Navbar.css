@@ -1,13 +1,14 @@
 .Nav-container{
     display: flex;
-    align-items: center;         /* THIS is the key */
+    align-items: center;
     justify-content: space-between;
     background-color:  var(--bg-color);
     color: var(--text-color);
-    height: 60px;                /* Give it height! */
+    height: 60px;             
     padding: 0 1rem;
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    border-bottom: 1px solid var(--icon-color);
     transition: background-color 0.3s ease, color 0.3s ease;
 }

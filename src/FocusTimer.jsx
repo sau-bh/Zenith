@@ -73,8 +73,8 @@ export default function FocusTimer({ duration, onComplete, autoStart = false }) 
                 value={percentage}
                 text={displayFormattedTime()}
                 styles={buildStyles({
-                    pathColor: "rgb(60, 62, 186)",
-                    trailColor: "rgb(180, 181, 215)",
+                    pathColor: "var(--focus-progress-color)",
+                    trailColor: "var(--focus-progress-trail-color)",
                 })}
             />
             <div className="controlers">

@@ -74,8 +74,8 @@ export default function BreakTimer({ duration, onComplete, autoStart = false }) 
                 value={percentage}
                 text={displayFormattedTime()}
                 styles={buildStyles({
-                    pathColor: "rgb(7, 136, 41)",
-                    trailColor: "rgb(73, 201, 103)",
+                    pathColor: "var(--break-progress-color)",
+                    trailColor: "var(--break-progress-trail-color)",
                 })}
             />
             <div className="controlers">

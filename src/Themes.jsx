@@ -97,14 +97,14 @@ export default function CustomizedMenus() {
                 <MenuItem onClick={() => handleThemeSelect('light')} disableRipple>
                     Light
                 </MenuItem>
-                <MenuItem onClick={() => handleThemeSelect('dark')} disableRipple>
-                    Dark
-                </MenuItem>
                 <MenuItem onClick={() => handleThemeSelect('blue')} disableRipple>
                     Blue
                 </MenuItem>
-                <MenuItem onClick={() => handleThemeSelect('highContrast')} disableRipple>
-                    High Contrast
+                <MenuItem onClick={() => handleThemeSelect('green')} disableRipple>
+                    Green
+                </MenuItem>
+                <MenuItem onClick={() => handleThemeSelect('orange')} disableRipple>
+                    Orange
                 </MenuItem>
             </StyledMenu>
         </div>

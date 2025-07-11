@@ -6,7 +6,10 @@
     align-items: center;
     background-color: transparent;
     border: none;
-    color: white;
+    color: var(--icon-color);
     padding: 0;
     cursor: pointer;
+}
+.menuBtn{
+    color: var(--icon-color)
 }
