@@ -5,7 +5,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import "./Themes.css"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -86,16 +85,7 @@ export default function CustomSound() {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleClose} disableRipple>
-                    Edit
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    Duplicate
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    Archive
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    More
+                  Coming Soon...
                 </MenuItem>
             </StyledMenu>
         </div>
